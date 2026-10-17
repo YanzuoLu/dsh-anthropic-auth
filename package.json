@@ -1,0 +1,44 @@
+{
+  "name": "dsh-anthropic-auth",
+  "version": "0.1.0",
+  "description": "Claude subscription (OAuth) compatibility for DeepSeek Harness Anthropic requests: Claude Code billing block, neutral identity line, pi-ai's claude-cli user agent, and Claude Code version recovery",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "anthropic",
+    "claude",
+    "oauth"
+  ],
+  "license": "MIT",
+  "author": "Yanzuo Lu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YanzuoLu/dsh-anthropic-auth.git"
+  },
+  "homepage": "https://github.com/YanzuoLu/dsh-anthropic-auth#readme",
+  "bugs": {
+    "url": "https://github.com/YanzuoLu/dsh-anthropic-auth/issues"
+  },
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-llm-pi-ai": "^0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "~3.18.4",
+    "@earendil-works/pi-ai": "^0.87.1"
+  }
+}

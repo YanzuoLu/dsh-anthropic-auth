@@ -1,0 +1,6 @@
+# dsh-anthropic-auth bundle patch: mounts the plugin that shapes Claude
+# subscription (OAuth) requests. It needs no configuration.
+
+- insert:
+    - id: anthropic-auth
+      name: dsh-anthropic-auth
