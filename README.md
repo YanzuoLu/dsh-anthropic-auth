@@ -23,6 +23,18 @@ dsh plugin --profile web add github:YanzuoLu/dsh-anthropic-auth
 
 The bundle patch mounts the plugin. No configuration is needed. It needs dsh 0.2.0-rc.2 or newer with `@earendil-works/pi-ai` 0.87 from the dsh installation, and a Claude sign-in on the `anthropic` route.
 
+## Login settings
+
+The Web client has a dedicated **Anthropic** settings section, alongside Antigravity and OpenAI Codex. It provides login/re-login, a manual authorization-code or full callback input when the native flow asks for it, cancellation, status and explicit logout confirmation.
+
+The controller calls DSH's existing `authorization.begin` flow for credential key `llm-pi-ai/anthropic`. It does not implement another OAuth exchange or refresh engine, read another app's credentials, or create a token file. The native credential store and pi-ai still own authorization, saving and automatic refresh. Opening the page only reads metadata and never refreshes credentials or starts a login. Existing API-key/environment overrides are not removed.
+
+All login endpoints use Connection's native authentication and Host/Origin admission. Provider selection is fixed on the Host; the browser cannot choose an arbitrary credential key. Authorization links and prompt answers are transient, never chat messages or stored settings. Expiry shown here is the access-token expiry, not proof that the refresh grant has expired.
+
+Logout removes only this provider's native stored credential after cancelling the page's own pending attempt. It affects subsequent requests in sessions that use that credential. It does not revoke the provider grant remotely or remove environment/API-key references. The UI asks for confirmation first.
+
+The login UI is a separate content-addressed Host entry. Updating it does not require unloading the existing `anthropic-auth` fetch wrapper. Refresh the Web page after installation to load the new client settings section. No DSH restart is needed, and installation never changes model selections or starts OAuth. No model tools are registered.
+
 ## Environment
 
 | Variable | Effect |

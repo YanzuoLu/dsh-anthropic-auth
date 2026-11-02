@@ -1,7 +1,7 @@
 {
   "name": "dsh-anthropic-auth",
-  "version": "0.1.0",
-  "description": "Claude subscription (OAuth) compatibility for DeepSeek Harness Anthropic requests: Claude Code billing block, neutral identity line, pi-ai's claude-cli user agent, and Claude Code version recovery",
+  "version": "0.2.0",
+  "description": "Claude OAuth request compatibility and native Anthropic login settings for DeepSeek Harness",
   "keywords": [
     "dsh",
     "deepseek-harness",
@@ -24,19 +24,33 @@
   "main": "index.js",
   "exports": {
     ".": "./index.js",
+    "./client": "./lib/client.js",
     "./package.json": "./package.json"
   },
   "files": [
     "index.js",
+    "login-entry.js",
     "lib",
+    "dist",
     "cordis.patch.yml"
   ],
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": ["@deepseek-ai/dsh-client-ui-settings", "@deepseek-ai/dsh-client-ui-primitives"]
     }
   },
+  "scripts": { "build": "node scripts/build.mjs" },
+  "engines": { "node": ">=22.15" },
+  "devDependencies": { "esbuild": "0.25.12" },
   "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.0.4",
+    "@deepseek-ai/dsh-authorization": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-credentials": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-client-connection": "0.2.0-rc.2",
     "@deepseek-ai/dsh-llm-pi-ai": "^0.2.0-rc.2",
     "@deepseek-ai/schemastery": "~3.18.4",
     "@earendil-works/pi-ai": "^0.87.1"
